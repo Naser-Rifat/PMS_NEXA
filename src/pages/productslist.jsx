@@ -1,5 +1,7 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
+import QueryLoader from "../Components/CustomStyles/QueryLoader";
 import interceptor from "../utils/interceptor";
 const { Column, ColumnGroup } = Table;
 const data = [
@@ -53,37 +55,54 @@ const ProductsList = () => {
   console.log(products);
   return (
     <>
-      <Table dataSource={products}>
-        <Column title="Category" dataIndex="category" key="category" />
-        <Column title="Title" dataIndex="title" key="title" />
+      {products?.length ? (
+        <Table dataSource={products}>
+          <Column title="Category" dataIndex="category" key="category" />
+          <Column title="Title" dataIndex="title" key="title" />
 
-        <Column title="Description" dataIndex="description" key="description" />
-        <Column title="Address" dataIndex="address" key="address" />
-        <Column
-          title="Tags"
-          dataIndex="tags"
-          key="tags"
-          //   render={(tags) => (
-          //     <>
-          //       {tags.map((tag) => (
-          //         <Tag color="blue" key={tag}>
-          //           {tag}
-          //         </Tag>
-          //       ))}
-          //     </>
-          //   )}
-        />
-        <Column
-          title="Action"
-          key="action"
-          render={(_, record) => (
-            <Space size="middle">
-              <a>Invite {record.lastName}</a>
-              <a>Delete</a>
-            </Space>
-          )}
-        />
-      </Table>
+          <Column
+            title="Description"
+            dataIndex="description"
+            key="description"
+          />
+          {/* <Column title="Address" dataIndex="address" key="address" />
+          <Column
+            title="Tags"
+            dataIndex="tags"
+            key="tags"
+            //   render={(tags) => (
+            //     <>
+            //       {tags.map((tag) => (
+            //         <Tag color="blue" key={tag}>
+            //           {tag}
+            //         </Tag>
+            //       ))}
+            //     </>
+            //   )}
+          /> */}
+          <Column
+            title="Action"
+            key="action"
+            render={(_, record) => (
+              <Space size="middle">
+                <EditOutlined
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={()=>{}}
+                />
+                <DeleteOutlined
+                  style={{
+                    cursor: "pointer",
+                  }}
+                />
+              </Space>
+            )}
+          />
+        </Table>
+      ) : (
+        <QueryLoader />
+      )}
     </>
   );
 };

@@ -8,12 +8,14 @@ import {
 import { Layout, Menu, theme } from "antd";
 import Link from "antd/es/typography/Link";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SuspenseLoader } from "../CustomStyles/SuspenseLoader";
 const { Header, Sider } = Layout;
 
 const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { pathname } = useLocation();
+  const path = pathname.replace("/", "");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -36,7 +38,7 @@ const MainLayout = ({ children }) => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["addproduct"]}
+            defaultSelectedKeys={[`${path || "addproduct"}`]}
             onClick={(e) => navigate(e.key)}
             items={[
               {
