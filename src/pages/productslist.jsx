@@ -1,6 +1,7 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
+import CustomModal from "../Components/CustomStyles/CustomModal";
 import QueryLoader from "../Components/CustomStyles/QueryLoader";
 import interceptor from "../utils/interceptor";
 const { Column, ColumnGroup } = Table;
@@ -32,6 +33,9 @@ const data = [
 ];
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  // const [open, setOpenModal] = useState(false);
+  const [modal1Open, setModal1Open] = useState(false);
+  const [modal2Open, setModal2Open] = useState(false);
   useEffect(() => {
     interceptor("products").then((res) => {
       //   if (res.data.length > 0) {
@@ -89,19 +93,24 @@ const ProductsList = () => {
                   style={{
                     cursor: "pointer",
                   }}
-                  onClick={()=>{}}
+                  onClick={() => setModal1Open(true)}
                 />
-                <DeleteOutlined
+                {/* <DeleteOutlined
                   style={{
                     cursor: "pointer",
                   }}
-                />
+                  onClick={() => setModal1Open(true)}
+                /> */}
               </Space>
             )}
           />
         </Table>
       ) : (
         <QueryLoader />
+      )}
+
+      {modal1Open && (
+        <CustomModal modal1Open={modal1Open} setModal1Open={setModal1Open} />
       )}
     </>
   );
