@@ -1,62 +1,25 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Space, Table, Tag } from "antd";
+import { EditOutlined } from "@ant-design/icons";
+import { Space, Table } from "antd";
 import { useEffect, useState } from "react";
+import UpdateProductForm from "../Components/Addproduct/UpdateProductForm";
 import CustomModal from "../Components/CustomStyles/CustomModal";
 import QueryLoader from "../Components/CustomStyles/QueryLoader";
 import interceptor from "../utils/interceptor";
-const { Column, ColumnGroup } = Table;
-const data = [
-  {
-    key: "1",
-    firstName: "John",
-    lastName: "Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    firstName: "Jim",
-    lastName: "Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    firstName: "Joe",
-    lastName: "Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+const { Column } = Table;
+
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
-  // const [open, setOpenModal] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
-  const [modal2Open, setModal2Open] = useState(false);
+  const [updateProduct, setUpdateProduct] = useState({});
   useEffect(() => {
     interceptor("products").then((res) => {
-      //   if (res.data.length > 0) {
-      //     setProducts((prev) =>
-      //     ...prev,[
-      //       res?.data.map((data, _i) => {
-      //         return {
-      //           key: data.id,
-      //           category: data.category,
-      //           description: data.description,
-      //           title: data?.title,
-      //           rating: data.rating,
-      //           price: data.price,
-      //         };
-      //       })],
-      //     );
-      //   }
-      setProducts(res.data);
+      setProducts(res?.data);
     });
   }, []);
-  console.log(products);
+  const handleUpdateProduct = (product) => {
+    setModal1Open(true);
+    setUpdateProduct(product);
+  };
   return (
     <>
       {products?.length ? (
@@ -93,14 +56,8 @@ const ProductsList = () => {
                   style={{
                     cursor: "pointer",
                   }}
-                  onClick={() => setModal1Open(true)}
+                  onClick={() => handleUpdateProduct(record)}
                 />
-                {/* <DeleteOutlined
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setModal1Open(true)}
-                /> */}
               </Space>
             )}
           />
@@ -110,7 +67,9 @@ const ProductsList = () => {
       )}
 
       {modal1Open && (
-        <CustomModal modal1Open={modal1Open} setModal1Open={setModal1Open} />
+        <CustomModal modal1Open={modal1Open} setModal1Open={setModal1Open}>
+          <UpdateProductForm updateProduct={updateProduct}></UpdateProductForm>
+        </CustomModal>
       )}
     </>
   );

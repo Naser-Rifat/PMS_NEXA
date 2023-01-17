@@ -3,17 +3,22 @@ import AddProductForm from "../Components/Addproduct/AddProductForm";
 import interceptor from "../utils/interceptor";
 
 const AddProduct = () => {
-  const handleApi = () => {
-    interceptor("products/21").then((res) => console.log(res.data));
-    //   .then((json) => console.log(json));
-  };
   return (
     <div
       style={{
         overflowY: "scroll",
       }}
     >
-      <button onClick={handleApi}>add</button>
+      <h1
+        style={{
+          marginTop: 20,
+          marginLeft: 180,
+          padding: 10,
+          fontSize: 22,
+        }}
+      >
+        Add Product
+      </h1>
       <AddProductForm />
     </div>
   );

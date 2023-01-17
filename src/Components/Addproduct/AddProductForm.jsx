@@ -1,29 +1,31 @@
 import { Button, Form, Input, InputNumber, TreeSelect } from "antd";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import interceptor from "../../utils/interceptor";
 const { TextArea } = Input;
+const validateMessages = {
+  required: "${label} is required!",
+  types: {
+    url: "${label} is not a valid image!",
+    number: "${label} is not a valid number!",
+  },
+  number: {
+    range: "${label} must be between ${min} and ${max}",
+  },
+};
 const AddProductForm = () => {
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      url: "${label} is not a valid image!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
-
-  const payLoad = {
-    title: "test product",
-    price: 13.5,
-    description: "lorem ipsum set",
-    image: "https://i.pravatar.cc",
-    category: "electronic",
-  };
-
+  const [categories, setCategories] = useState([]);
+  interceptor("products/categories").then((res) => setCategories(res.data));
   const onFinish = (values) => {
     console.log(values);
-    interceptor.post("products", values).then((res) => console.log(res));
+    toast.promise(
+      interceptor.post("products", values).then((res) => res.data),
+      {
+        pending: " products submitting..",
+        success: "products successfully added!",
+        error: "products adding error",
+      }
+    );
   };
   return (
     <>
@@ -49,20 +51,12 @@ const AddProductForm = () => {
           ]}
         >
           <TreeSelect
-            treeData={[
-              {
-                title: "Light",
-                value: "light",
-              },
-              {
-                title: "Light2",
-                value: "light2",
-              },
-              {
-                title: "Light3",
-                value: "light3",
-              },
-            ]}
+            treeData={categories.map((category) => {
+              return {
+                title: category,
+                value: category,
+              };
+            })}
           />
         </Form.Item>
         <Form.Item
