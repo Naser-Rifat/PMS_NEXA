@@ -6,7 +6,6 @@ import {
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import Link from "antd/es/typography/Link";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SuspenseLoader } from "../CustomStyles/SuspenseLoader";

@@ -2,6 +2,7 @@ import { Button, Form, Input, InputNumber, TreeSelect } from "antd";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import interceptor from "../../utils/interceptor";
+import QueryLoader from "../CustomStyles/QueryLoader";
 const { TextArea } = Input;
 const validateMessages = {
   required: "${label} is required!",
@@ -29,92 +30,108 @@ const AddProductForm = () => {
   };
   return (
     <>
-      <Form
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 10,
-        }}
-        layout="horizontal"
-        ame="nest-messages"
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-      >
-        <Form.Item
-          name={["product", "Category"]}
-          label="Category"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <TreeSelect
-            treeData={categories.map((category) => {
-              return {
-                title: category,
-                value: category,
-              };
-            })}
-          />
-        </Form.Item>
-        <Form.Item
-          label="title"
-          name={["product", "title"]}
-          rules={[
-            {
-              type: "text",
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+      {categories.length ? (
+        <>
+          <h1
+            style={{
+              marginTop: 20,
+              marginLeft: 180,
+              padding: 10,
+              fontSize: 22,
+            }}
+          >
+            Add Product
+          </h1>
+          <Form
+            labelCol={{
+              span: 4,
+            }}
+            wrapperCol={{
+              span: 10,
+            }}
+            layout="horizontal"
+            ame="nest-messages"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
+          >
+            <Form.Item
+              name={["product", "Category"]}
+              label="Category"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <TreeSelect
+                treeData={categories.map((category) => {
+                  return {
+                    title: category,
+                    value: category,
+                  };
+                })}
+              />
+            </Form.Item>
+            <Form.Item
+              label="title"
+              name={["product", "title"]}
+              rules={[
+                {
+                  type: "text",
+                  required: true,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item
-          label="price"
-          name={["product", "price"]}
-          rules={[
-            {
-              type: "number",
-              required: true,
-            },
-          ]}
-        >
-          <InputNumber type="number" />
-        </Form.Item>
-        <Form.Item
-          name={["product", "description"]}
-          label="description"
-          rules={[
-            {
-              type: "text",
-              required: true,
-            },
-          ]}
-        >
-          <TextArea rows={4} />
-        </Form.Item>
+            <Form.Item
+              label="price"
+              name={["product", "price"]}
+              rules={[
+                {
+                  type: "number",
+                  required: true,
+                },
+              ]}
+            >
+              <InputNumber type="number" />
+            </Form.Item>
+            <Form.Item
+              name={["product", "description"]}
+              label="description"
+              rules={[
+                {
+                  type: "text",
+                  required: true,
+                },
+              ]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
 
-        <Form.Item
-          label="image url"
-          name={["product", "image"]}
-          rules={[
-            {
-              type: "url",
-              required: true,
-            },
-          ]}
-        >
-          <Input type="url" />
-        </Form.Item>
-        <Form.Item label="Button">
-          <Button type="primary" htmlType="submit">
-            Button
-          </Button>
-        </Form.Item>
-      </Form>
+            <Form.Item
+              label="image url"
+              name={["product", "image"]}
+              rules={[
+                {
+                  type: "url",
+                  required: true,
+                },
+              ]}
+            >
+              <Input type="url" />
+            </Form.Item>
+            <Form.Item label="Button">
+              <Button type="default" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </>
+      ) : (
+        <QueryLoader />
+      )}
     </>
   );
 };
