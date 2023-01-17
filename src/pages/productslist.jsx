@@ -32,32 +32,32 @@ const ProductsList = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     interceptor("products").then((res) => {
-      if (res.data.length > 0) {
-        setProducts((prev) => [
-          ...prev,
-          res?.data.map((data, _i) => {
-            return {
-              key: data.id,
-              category: data.category,
-              description: data.description,
-              title: data?.title,
-              rating: data.rating,
-              price: data.price,
-            };
-          }),
-        ]);
-      }
+      //   if (res.data.length > 0) {
+      //     setProducts((prev) =>
+      //     ...prev,[
+      //       res?.data.map((data, _i) => {
+      //         return {
+      //           key: data.id,
+      //           category: data.category,
+      //           description: data.description,
+      //           title: data?.title,
+      //           rating: data.rating,
+      //           price: data.price,
+      //         };
+      //       })],
+      //     );
+      //   }
+      setProducts(res.data);
     });
   }, []);
   console.log(products);
   return (
     <>
       <Table dataSource={products}>
-        <ColumnGroup title="Name">
-          <Column title="category" dataIndex="category" key="category" />
-          <Column title="Last Name" dataIndex="lastName" key="lastName" />
-        </ColumnGroup>
-        <Column title="Age" dataIndex="age" key="age" />
+        <Column title="Category" dataIndex="category" key="category" />
+        <Column title="Title" dataIndex="title" key="title" />
+
+        <Column title="Description" dataIndex="description" key="description" />
         <Column title="Address" dataIndex="address" key="address" />
         <Column
           title="Tags"

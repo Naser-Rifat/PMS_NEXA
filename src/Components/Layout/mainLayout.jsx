@@ -9,6 +9,7 @@ import { Layout, Menu, theme } from "antd";
 import Link from "antd/es/typography/Link";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SuspenseLoader } from "../CustomStyles/SuspenseLoader";
 const { Header, Sider } = Layout;
 
 const MainLayout = ({ children }) => {
@@ -31,30 +32,31 @@ const MainLayout = ({ children }) => {
         collapsible
         collapsed={collapsed}
       >
-        <Link className="" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["addproduct"]}
-          onClick={(e) => navigate(e.key)}
-          items={[
-            {
-              key: "addproduct",
-              icon: <PlusCircleOutlined />,
-              label: "Add Product",
-            },
-            {
-              key: "productslist",
-              icon: <UnorderedListOutlined />,
-              label: "Products List",
-            },
-            {
-              key: "updateproduct",
-              icon: <UploadOutlined />,
-              label: "Update Product",
-            },
-          ]}
-        />
+        <SuspenseLoader>
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={["addproduct"]}
+            onClick={(e) => navigate(e.key)}
+            items={[
+              {
+                key: "addproduct",
+                icon: <PlusCircleOutlined />,
+                label: "Add Product",
+              },
+              {
+                key: "productslist",
+                icon: <UnorderedListOutlined />,
+                label: "Products List",
+              },
+              {
+                key: "updateproduct",
+                icon: <UploadOutlined />,
+                label: "Update Product",
+              },
+            ]}
+          />
+        </SuspenseLoader>
       </Sider>
       <Layout className="site-layout">
         <Header style={{ padding: 4, background: colorBgContainer }}>
