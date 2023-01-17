@@ -20,11 +20,61 @@ const UpdateProduct = () => {
     setModal1Open(true);
     setUpdateProduct(product);
   };
+  const columns = [
+    // {
+    //   title: "images",
+    //   key: "images",
+    //   dataIndex: "images",
+    //   render: (_, record) => (
+    //     <>
+    //       <div
+    //         style={{
+    //           width: 10,
+    //           height: 10,
+    //           borderRadius: "50%",
+    //         }}
+    //       >
+    //         <img src={record?.image} alt="product" />
+    //       </div>
+    //     </>
+    //   ),
+    // },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <EditOutlined
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => handleUpdateProduct(record)}
+          />
+        </Space>
+      ),
+    },
+  ];
   return (
     <>
       {products?.length ? (
-        <Table dataSource={products}>
-          <Column title="Category" dataIndex="category" key="category" />
+        <Table dataSource={products} columns={columns}>
+          {/* <Column title="Category" dataIndex="category" key="category" />
           <Column title="Title" dataIndex="title" key="title" />
 
           <Column
@@ -46,7 +96,7 @@ const UpdateProduct = () => {
                 />
               </Space>
             )}
-          />
+          /> */}
         </Table>
       ) : (
         <QueryLoader />
